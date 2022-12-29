@@ -10,27 +10,20 @@ namespace Omega_Sudoku.src.SudokuSolver
     /// This class represents a GridHandler object.
     /// It is responsible for handling the input string and converting it to the desired binary matrix
     /// in order to use Algorithm X.
-    /// This object is a Singleton - only one instance of it is necessary in the program.
     /// </summary>
     public class GridHandler
     {
-        // Reference for the object's instance.
-        private static GridHandler _instance = null;
-        private int gridSize;
+
+        private int _gridSize;
+        private string _inputString;
         
-        private GridHandler() {
-            
+        private GridHandler(int gridSize, string inputString) {
+            this._gridSize = gridSize;
+            this._inputString = inputString;
         }
 
-        public static GridHandler GetInstance() {
-            // If the instance is null (first time asking for the instance), 
-            // create a new instance of the object and return it.
-            if (_instance == null) {
-                _instance = new GridHandler();
-                return _instance;
-            }
-            // Else, return the existing instance
-            return _instance;
-        }
+        public int[, ] CreateExactCoverMatrix() {
+            return null;
+        } 
     }
 }
