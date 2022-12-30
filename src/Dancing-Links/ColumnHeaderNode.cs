@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 namespace Omega_Sudoku.src.DancingLinks
 {
     /// <summary>
-    /// This class represents a column header node, which is a regular
-    /// dancing node with 2 additional fields
+    /// This class represents a column header node, which is the node that "controls" the nodes below it
     /// </summary>
     public class ColumnHeaderNode : DancingNode
     {
