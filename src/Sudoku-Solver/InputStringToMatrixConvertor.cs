@@ -28,7 +28,7 @@ namespace Omega_Sudoku.src.SudokuSolver
             // Initialize the matrix
             int[,] matrix = new int[this._size, this._size];
 
-            int length = this._inputString.Length / 2;
+            int length = this._inputString.Length;
 
             // if the length of the string is not equal to the size^2, raise an exception
             if (length != this._size * this._size) {
@@ -59,12 +59,6 @@ namespace Omega_Sudoku.src.SudokuSolver
             }
 
             return matrix;
-        }
-
-        public static void main(string[] args) {
-            InputStringToMatrixConvertor convertor = new InputStringToMatrixConvertor("2323", 2);
-            int [,] matrix = convertor.ConvertToMatrix();
-
         }
     }
 }
