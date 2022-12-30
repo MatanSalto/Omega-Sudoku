@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +21,7 @@ namespace Omega_Sudoku.src.SudokuSolver
             this._size = size;   
         }
 
-        public int[, ] CreateEmptyExactCoverMatrix() {
+        public int[, ] CreateExactCoverMatrix() {
             // Initialize the cover matrix
             int [, ] coverMatrix = new int[_size*_size*_size, _size*_size*NUMBER_OF_CONSTRAINTS];
 
@@ -82,20 +81,5 @@ namespace Omega_Sudoku.src.SudokuSolver
             return coverMatrix;
         }
 
-        public static void Main(string[] args) {
-
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            
-            InputStringToMatrixConvertor convertor1 = new InputStringToMatrixConvertor("800000070006010053040600000000080400003000700020005038000000800004050061900002000", 9);
-            int [,] grid = convertor1.ConvertToMatrix();
-
-            GridToExactCoverConvertor convertor = new GridToExactCoverConvertor(grid , 9);
-            int[,] cover = convertor.CreateEmptyExactCoverMatrix();
-
-            stopwatch.Stop();
-            Console.WriteLine("Time: " + stopwatch.ElapsedMilliseconds + " ms");
-
-        }
     }
 }   
