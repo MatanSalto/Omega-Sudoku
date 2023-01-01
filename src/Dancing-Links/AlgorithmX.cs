@@ -15,29 +15,29 @@ namespace Omega_Sudoku.src.DancingLinks
     public class AlgorithmX
     {
         // The list representing the nodes that are included in the solution
-        private DancingNode[] _solution;
+        private Stack<DancingNode> _solution;
 
         // The DLX cover problem list to solve
         private ColumnHeaderNode _root;
 
 
-        public AlgorithmX(ColumnHeaderNode root, int size) {
+        public AlgorithmX(ColumnHeaderNode root) {
             this._root = root;
-            this._solution = new DancingNode[size];
+            this._solution = new Stack<DancingNode>();
         }
 
-        public DancingNode[] Solve() {
+        public Stack<DancingNode> Solve() {
             this.Search(0);
             return this._solution;
         }
 
-        public void Search(int k) {
-
-            if (_root.right = _root) {
-                return;
+        public bool Search(int k) {
+            // If there are no more columns, we reached a solution, so return true
+            if (_root.right == _root) {
+                return true;
             }
 
-            // Choose the column and cover it
+            // Else, choose the column and cover it
             ColumnHeaderNode column = this.SelectColumnHeaderNode();
             column.Cover();
 
@@ -45,7 +45,7 @@ namespace Omega_Sudoku.src.DancingLinks
             DancingNode rowPointer = column.down;
             while (rowPointer != column) {
                 // Add the current node to the solution
-                _solution.Append(rowPointer);
+                _solution.Push(rowPointer);
 
                 // Cover all of the columns that are connected to the current row
                 DancingNode nodePointer = rowPointer.right;
@@ -55,10 +55,12 @@ namespace Omega_Sudoku.src.DancingLinks
                 }
 
                 // Call the function recursively
-                Search(k+1);
+                if (Search(k+1)) {
+                    return true;
+                }
 
                 // Get the last node in the solution and its column
-                DancingNode rowPointer = _solution[k+1];
+                rowPointer = _solution.Pop();
                 column = rowPointer.header;
 
                 // Uncover all of the columns that are connected to the current row
@@ -67,9 +69,12 @@ namespace Omega_Sudoku.src.DancingLinks
                     nodePointer.header.Uncover();
                     nodePointer = nodePointer.left;
                 }
+
+                rowPointer = rowPointer.down;
             }
             // Uncover the current column
             column.Uncover();
+            return false;
         }
 
         public ColumnHeaderNode SelectColumnHeaderNode() {
@@ -79,7 +84,7 @@ namespace Omega_Sudoku.src.DancingLinks
             ColumnHeaderNode columnPointer = (ColumnHeaderNode) _root.right;
 
             // Traverse the headers
-            while (columnPointer != header) {
+            while (columnPointer != _root) {
                 // If the current header's value is smaller than the min, 
                 // set it as the min node
                 if (columnPointer.size < minColumnNode.size) {
