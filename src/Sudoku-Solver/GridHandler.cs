@@ -22,33 +22,20 @@ namespace Omega_Sudoku.src.SudokuSolver
         private InputStringToMatrixConvertor _stringToGridConvertor;
         private GridToExactCoverConvertor _gridToExactCoverConvertor;
         
-        private GridHandler(int gridSize, string inputString) {
+        public GridHandler(int gridSize, string inputString) {
             this._gridSize = gridSize;
             this._inputString = inputString;
         }
 
-        public int[, ] CreateExactCoverMatrix() {
+        public byte[, ] CreateExactCoverMatrix() {
             this._stringToGridConvertor = new InputStringToMatrixConvertor(_inputString, _gridSize);
-            int[, ] grid = _stringToGridConvertor.ConvertToMatrix();
+            byte[, ] grid = _stringToGridConvertor.ConvertToMatrix();
 
             this._gridToExactCoverConvertor = new GridToExactCoverConvertor(grid, _gridSize);
-            int[, ] cover = _gridToExactCoverConvertor.CreateExactCoverMatrix();
+            byte[, ] cover = _gridToExactCoverConvertor.CreateExactCoverMatrix();
 
             return cover;
         } 
 
-        public static void Main(string[] args) {
-
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            
-            GridHandler gridHandler = new GridHandler(9, "800000070006010053040600000000080400003000700020005038000000800004050061900002000");
-            
-            int[,] cover = gridHandler.CreateExactCoverMatrix();
-
-            stopwatch.Stop();
-            Console.WriteLine("Time: " + stopwatch.ElapsedMilliseconds + " ms");
-
-        }
     }
 }
