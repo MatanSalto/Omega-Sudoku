@@ -17,9 +17,10 @@ namespace Omega_Sudoku.src.DancingLinks
         // The name of the column
         public string name;
         
-        public ColumnHeaderNode(string name) : base(this) {
+        public ColumnHeaderNode(string name) : base(null) {
             this.size = 0;
             this.name = name;
+            this.header = this;
         } 
 
         /// <summary>
