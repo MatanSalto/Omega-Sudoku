@@ -8,7 +8,7 @@ namespace Omega_Sudoku.src.SudokuSolver
     public class GridToExactCoverConvertor
     {
         // The 2D array representing the sudoku grid
-        private int[, ] _grid;
+        private byte[, ] _grid;
         // The size of the board
         private int _size;
 
@@ -16,14 +16,14 @@ namespace Omega_Sudoku.src.SudokuSolver
         private const int NUMBER_OF_CONSTRAINTS = 4;
 
 
-        public GridToExactCoverConvertor(int[, ] grid, int size) {
+        public GridToExactCoverConvertor(byte[, ] grid, int size) {
             this._grid = grid;
             this._size = size;   
         }
 
-        public int[, ] CreateExactCoverMatrix() {
+        public byte[, ] CreateExactCoverMatrix() {
             // Initialize the cover matrix
-            int [, ] coverMatrix = new int[_size*_size*_size, _size*_size*NUMBER_OF_CONSTRAINTS];
+            byte [, ] coverMatrix = new byte[_size*_size*_size, _size*_size*NUMBER_OF_CONSTRAINTS];
 
             // The current row in the cover matrix
             int currentRow = 0;
@@ -53,7 +53,7 @@ namespace Omega_Sudoku.src.SudokuSolver
                     int square = (row / (int)Math.Sqrt(_size)) * (int)Math.Sqrt(_size) + col / (int)Math.Sqrt(_size);
 
                     // Loop through the possible numbers in the current cell
-                    for (int number = 1; number <= _size; number++) {
+                    for (byte number = 1; number <= _size; number++) {
                         // Put a 1 only if the value is 0 or the number is the same as the value
                         if (value == 0 || number == value) {
 
