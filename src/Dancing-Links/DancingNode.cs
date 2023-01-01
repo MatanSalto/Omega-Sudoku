@@ -16,7 +16,7 @@ namespace Omega_Sudoku.src.DancingLinks
 
         public DancingNode(ColumnHeaderNode header) {
             // Initialize the linked nodes to null
-            this.left = this.right = this.up = this.down = null;
+            this.left = this.right = this.up = this.down = this;
             // Set the column header node
             this.header = header;
         }
@@ -31,25 +31,25 @@ namespace Omega_Sudoku.src.DancingLinks
         public void LinkDown(DancingNode node) {
             node.down = this.down;
             this.down.up = node;
-            this.down = n1;
-            n1.up = this;
+            this.down = node;
+            node.up = this;
         }
 
-        protected void UnlinkLeftRight() {
+        public void UnlinkLeftRight() {
             this.right.left = this.left;
             this.left.right = this.right;
         }
 
-        protected void UnlinkUpDown() {
+        public void UnlinkUpDown() {
             this.down.up = this.up;
             this.up.down = this.down;
         }
 
-        protected void RelinkLeftRight() {
+        public void RelinkLeftRight() {
             this.left.right = this.right.left = this;
         }
 
-        protected void RelinkUpDown() {
+        public void RelinkUpDown() {
             this.up.down = this.down.up = this;
         }
     }
