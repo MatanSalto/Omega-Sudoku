@@ -1,4 +1,3 @@
-using System.Diagnostics.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +23,9 @@ namespace Omega_Sudoku.src.SudokuSolver
             this._size = size;
         }
 
-        public int[,] ConvertToMatrix() {
+        public byte[,] ConvertToMatrix() {
             // Initialize the matrix
-            int[,] matrix = new int[this._size, this._size];
+            byte[,] matrix = new byte[this._size, this._size];
 
             int length = this._inputString.Length;
 
@@ -42,10 +41,10 @@ namespace Omega_Sudoku.src.SudokuSolver
             // Loop through the characters in the input string
             for (int i = 0; i < length; i++) {
                 // Get the current digit and convert it to int
-                int value = _inputString[i] - '0';
+                byte value = (byte) (_inputString[i] - '0');
 
-                // if the current char is not a digit, raise an exception
-                if (value < 0 || value > 9) {
+                // if the current char in the valid range, raise an exception
+                if (value < 0 || value > _size) {
                     // TO-DO: handle invalid character
                     Console.WriteLine("INVALID CHAR");
                 }
