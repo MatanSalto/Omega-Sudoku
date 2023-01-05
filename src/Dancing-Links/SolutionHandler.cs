@@ -1,3 +1,4 @@
+using System.Threading.Tasks.Dataflow;
 using System.Xml;
 using System.Numerics;
 using System.Reflection.Metadata;
@@ -27,7 +28,23 @@ namespace Omega_Sudoku.src.DancingLinks
             this._solution = solution;
         }
 
-        public int[, ] ConvertToGrid() {
+        public string ConvertToString() {
+            // Get the grid representation of the solution
+            int[, ] grid = ConvertToGrid();
+
+            // Convert the matrix to string
+            outputString = "";
+            for (int i = 0; i < grid.GetLength(0); i++) {
+                for (int j = 0; j < grid.GetLength(1); j++) {
+                    outputString = outputString +  " " + grid[i, j] + " ";
+                }
+                outputString = outputString + "\n";
+            }
+
+            return outputString;
+        }
+
+        private string ConvertToGrid() {
 
             // Initialize the output grid
             int[, ] grid = new int[_size, _size];
@@ -62,29 +79,5 @@ namespace Omega_Sudoku.src.DancingLinks
             return grid;
         }
 
-        
-        public static void Main(string[] args) {
-
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            
-            InputStringBoard stringBoard = new InputStringBoard( "800000070006010053040600000000080400003000700020005038000000800004050061900002000", 9);
-            
-            SudokuBoard board = new SudokuBoard(stringBoard.ConvertToMatrix(), 9);
-            ExactCoverMatrix matrix = new ExactCoverMatrix(board.CreateExactCoverMatrix());
-            DancingLinksSolver solver = new DancingLinksSolver(matrix.ConvertToDLXRepresentation());
-            SolutionHandler solution = new SolutionHandler(9, solver.Solve());
-            int[,] output = solution.ConvertToGrid();
-
-            stopwatch.Stop();
-            Console.WriteLine("Time: " + stopwatch.ElapsedMilliseconds + " ms");
-
-            for(int i = 0; i < output.GetLength(0); i++) {
-                for (int j = 0; j < output.GetLength(1); j++) {
-                    Console.Write(" " + (char)(output[i, j] + '0') + " ");
-                }
-                Console.WriteLine();
-            }
-        }
     }
 }
