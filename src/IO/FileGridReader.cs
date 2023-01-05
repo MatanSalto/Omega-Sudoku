@@ -1,9 +1,5 @@
-using System.Data;
-using Internal;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Omega_Sudoku.src.IO
 {
@@ -11,11 +7,11 @@ namespace Omega_Sudoku.src.IO
     {
         public string Read() {
             Console.WriteLine("Enter the path to the file");
-            string path = ConstraintCollection.ReadLine();
+            string path = Console.ReadLine();
             
             // If the path exists
             if (File.Exists(path)) {
-                return File.ReadLine(path);
+                return File.ReadAllLines(path)[0];
             }
             else {
                 // TO-DO: Handle invalid path
