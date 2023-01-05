@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Omega_Sudoku.src.SudokuSolver;
 using System.Diagnostics;
 
 namespace Omega_Sudoku.src.DancingLinks
@@ -23,7 +22,7 @@ namespace Omega_Sudoku.src.DancingLinks
         private Stack<DancingNode> _solution;
 
 
-        public SolutionHandler(int size, Stack<DancingNode> solution) {
+        public SolutionHandler(Stack<DancingNode> solution, int size) {
             this._size = size;
             this._solution = solution;
         }
@@ -33,10 +32,10 @@ namespace Omega_Sudoku.src.DancingLinks
             int[, ] grid = ConvertToGrid();
 
             // Convert the matrix to string
-            outputString = "";
+            string outputString = "";
             for (int i = 0; i < grid.GetLength(0); i++) {
                 for (int j = 0; j < grid.GetLength(1); j++) {
-                    outputString = outputString +  " " + grid[i, j] + " ";
+                    outputString = outputString +  " " + grid[i, j] + (grid[i, j] > 9 ? "" : " ");
                 }
                 outputString = outputString + "\n";
             }
@@ -44,7 +43,7 @@ namespace Omega_Sudoku.src.DancingLinks
             return outputString;
         }
 
-        private string ConvertToGrid() {
+        private int[,] ConvertToGrid() {
 
             // Initialize the output grid
             int[, ] grid = new int[_size, _size];
