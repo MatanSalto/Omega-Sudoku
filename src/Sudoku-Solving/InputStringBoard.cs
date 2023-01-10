@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Omega_Sudoku.src.Exceptions;
 
 namespace Omega_Sudoku.src.SudokuSolving
 {
@@ -32,8 +33,7 @@ namespace Omega_Sudoku.src.SudokuSolving
 
             // if the length of the string is not a perfect square, raise an exception
             if (Math.Sqrt(length) % 1 != 0) {
-                // TO-DO: handle invalid size
-                Console.WriteLine("INVALID LENGTH");
+                throw new InvalidLengthException(length);
             }
 
             // Get the size of the board
