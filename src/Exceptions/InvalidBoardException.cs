@@ -1,6 +1,11 @@
 ﻿using System;
 
-public class InvalidInvalidBoardExceptionBoard : Exception
+
+namespace Omega_Sudoku.src.Exceptions
 {
-	public InvalidBoardException(string message) : base(message) { }
+    public class InvalidBoardException: Exception
+    {
+        public InvalidBoardException() : base("The given sudoku board is invalid") { }
+    }
 }
+
