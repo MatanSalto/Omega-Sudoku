@@ -10,18 +10,20 @@ using Omega_Sudoku.src.DancingLinks;
 using System.Diagnostics;
 
 
-
 namespace Omega_Sudoku.src.SudokuSolving
 {
     public class Solver
     {
-        public static void Solve(string input) {
+        public Solver() { }
+        public string Solve(string input) {
             // Create a new InputString object
             InputStringBoard inputStringBoard = new InputStringBoard(input);
 
             // Convert to string to a matrix
             SudokuBoard board = new SudokuBoard(inputStringBoard.ConvertToMatrix(), inputStringBoard.size);
-
+            // Validate the board
+            board.ValidateBoard();
+            
             // Convert to exact covert matrix
             ExactCoverMatrix cover = new ExactCoverMatrix(board.CreateExactCoverMatrix());
 
@@ -32,18 +34,10 @@ namespace Omega_Sudoku.src.SudokuSolving
             SolutionHandler solutionHandler = new SolutionHandler(solver.Solve(), inputStringBoard.size);
 
             // Get the string representing the solution
-            string s = solutionHandler.ConvertToString();
-            Console.Write(s);  
+            string solution = solutionHandler.ConvertToString();
 
-        }
-
-        public static void Main(string[] args) {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            Solve("0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
-            stopwatch.Stop();
-            Console.WriteLine("Time: " + stopwatch.ElapsedMilliseconds + " ms");
-
+            // Return the solution string
+            return solution;
         }
     }
 }
