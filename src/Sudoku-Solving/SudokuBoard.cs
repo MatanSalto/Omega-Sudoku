@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Omega_Sudoku.src.Exceptions;
 
 namespace Omega_Sudoku.src.SudokuSolving
 {
@@ -19,6 +20,46 @@ namespace Omega_Sudoku.src.SudokuSolving
         public SudokuBoard(byte[, ] grid, int size) {
             this._grid = grid;
             this._size = size;   
+        }
+
+        public void ValidateBoard()
+        {
+            byte[,] rows = new byte[_size, _size];
+            byte[,] cols = new byte[_size, _size];
+            byte[,] squares = new byte[_size, _size];
+
+            // Loop through the cells of the given sudoku board
+            for(int row = 0; row < _size; row++)
+            {
+                for (int col = 0; col < _size; col++)
+                {
+                    // Get the number at the current cell
+                    int number = _grid[row, col];
+
+                    // Get the current square
+                    int square = (row / (int)Math.Sqrt(_size)) * (int)Math.Sqrt(_size) + col / (int)Math.Sqrt(_size);
+
+                    // If the current cell is not empty,
+                    // fill the rows, cols, and sqaures arrays
+                    if (number != 0)
+                    {
+                        // If the number doesn't appear in the current row, col and square
+                        if (rows[row, number-1] == 0 && cols[col, number-1] == 0 && squares[square, number-1] == 0)
+                        {
+                            // Fill the number
+                            rows[row, number-1] = 1;
+                            cols[col, number-1] = 1;
+                            squares[square, number-1] = 1;
+                        }
+                        // If the number already exists in the current row/col/square
+                        // raise an exception
+                        else
+                        {
+                           throw new InvalidBoardException();
+                        }
+                    }
+                }
+            }
         }
 
         public byte[, ] CreateExactCoverMatrix() {
