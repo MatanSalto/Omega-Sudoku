@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Omega_Sudoku.src.Exceptions;
 
 namespace Omega_Sudoku.src.DancingLinks
 {
@@ -47,6 +48,12 @@ namespace Omega_Sudoku.src.DancingLinks
 
             // Initialize the output grid
             int[, ] grid = new int[_size, _size];
+            
+            // If the stack is empty, raise an exception
+            if (_solution.Count == 0)
+            {
+                throw new UnsolvableBoardException("The given sudoku board is unsolvable");
+            }
 
             // Loop through the nodes in the list
             while (_solution.Count != 0) {
