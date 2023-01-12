@@ -1,13 +1,11 @@
-using System.Net;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Omega_Sudoku.src.DancingLinks
 {
     /// <summary>
-    /// This class represents a column header node, which is the node that "controls" the nodes below it
+    /// This class represents a column header node, which is the node that holds the nodes below it
     /// </summary>
     public class ColumnHeaderNode : DancingNode
     {
@@ -17,6 +15,11 @@ namespace Omega_Sudoku.src.DancingLinks
         // The name of the column
         public string name;
         
+        /// <summary>
+        /// Constructor for the ColumnHeaderNode class
+        /// </summary>
+        /// <param name="name">The name of the column</param>
+        /// <returns></returns>
         public ColumnHeaderNode(string name) : base(null) {
             this.size = 0;
             this.name = name;
@@ -24,11 +27,10 @@ namespace Omega_Sudoku.src.DancingLinks
         } 
 
         /// <summary>
-        /// This method performs the cover operation: unlinking all of the rows that
+        /// This method performs the Cover operation: unlinking all of the rows that
         /// are connected to the current column
         /// </summary>
-        public void Cover() {
-            
+        public void Cover() { 
             // Unlink the column header node
             this.UnlinkLeftRight();
             DancingNode rowPointer = this.down;
@@ -43,16 +45,17 @@ namespace Omega_Sudoku.src.DancingLinks
                     nodePointer.header.size--;
                     nodePointer = nodePointer.right;
                 }
+                // Move to the next node (down)
                 rowPointer = rowPointer.down;
             }
         }
 
         /// <summary>
-        /// This method performs the uncover operation: relinking all of the rows that are
+        /// This method performs the Uncover operation: relinking all of the rows that are
         /// connected to the current column
         /// </summary>
         public void Uncover() {
-
+            // Get the pointer to the last row
             DancingNode rowPointer = this.up;
 
             // Traverse the nodes in the current column
@@ -67,7 +70,6 @@ namespace Omega_Sudoku.src.DancingLinks
                 }
                 rowPointer = rowPointer.up;
             }
-
             // Relink the column header node
             this.RelinkLeftRight(); 
         }
