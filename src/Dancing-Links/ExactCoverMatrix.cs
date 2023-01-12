@@ -1,23 +1,29 @@
-using System.ComponentModel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace Omega_Sudoku.src.DancingLinks
 {
     /// <summary>
-    /// This class is responsible for converting the cover matrix into DLX it's representation
+    /// This class represents the exact cover matrix representation of the board
     /// </summary>
     public class ExactCoverMatrix
     {
         // The input grid
         private byte[,] _matrix;
 
+        /// <summary>
+        /// Constructor for the ExactCoverMatrix class
+        /// </summary>
+        /// <param name="grid">The input exact cover matrix</param>
         public ExactCoverMatrix(byte[,] grid) {
             this._matrix = grid;
         }
 
+        /// <summary>
+        /// This method converts the byte cover matrix into DLX representation
+        /// </summary>
+        /// <returns></returns>
         public ColumnHeaderNode ConvertToDLXRepresentation() {
             // Create the root node
             ColumnHeaderNode root = new ColumnHeaderNode("Root");
@@ -40,7 +46,7 @@ namespace Omega_Sudoku.src.DancingLinks
             // Loop through the rows of the matrix
             for (int i = 0; i < _matrix.GetLength(0); i++) {
                 // The previous node in the current row
-                DancingNode previousNode = null;
+                DancingNode? previousNode = null;
 
                 // Loop through the cells in the current row
                 for (int j = 0; j < _matrix.GetLength(1); j++) {
@@ -66,7 +72,6 @@ namespace Omega_Sudoku.src.DancingLinks
                     }
                 } 
             }
-
             // Return the DLX list
             return root;
         }
