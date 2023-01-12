@@ -1,3 +1,5 @@
+#pragma warning disable CS8600
+
 using System;
 
 

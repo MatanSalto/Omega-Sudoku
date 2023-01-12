@@ -1,3 +1,5 @@
+#pragma warning disable CS8603
+
 using System;
 
 namespace Omega_Sudoku.src.IO

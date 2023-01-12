@@ -1,3 +1,5 @@
+#pragma warning disable CS8602
+
 using System;  
 using System.Diagnostics;
 using System.Runtime.InteropServices.Marshalling;
