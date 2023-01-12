@@ -1,4 +1,6 @@
+#pragma warning disable CS8600
 #pragma warning disable CS8602
+
 
 using System;  
 using System.Diagnostics;
@@ -21,7 +23,8 @@ namespace Omega_Sudoku
                 ShowMenu();
 
                 // Get the user's choice
-                char choice = Console.ReadLine()[0];
+                string choiceString = Console.ReadLine();
+                char choice = choiceString != null ? choiceString[0] : ' ';
 
                 // If the user's choice was 'x', exit the mainloop
                 if (choice == 'x')
