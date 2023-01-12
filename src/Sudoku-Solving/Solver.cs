@@ -1,21 +1,28 @@
-using System.ComponentModel;
-using System.Xml;
-using System.Reflection.Metadata;
-using System.Threading.Tasks.Sources;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Omega_Sudoku.src.DancingLinks;
-using System.Diagnostics;
 
 
 namespace Omega_Sudoku.src.SudokuSolving
 {
+    /// <summary>
+    /// This class represents a Solver object,
+    /// which is responsible for solving the sudoku board
+    /// </summary>
     public class Solver
     {
+        /// <summary>
+        /// Constructor for the Solver class
+        /// </summary>
         public Solver() { }
+
+        /// <summary>
+        /// This method implements the pipeline for solving
+        /// the sudoku board
+        /// </summary>
+        /// <param name="input">The input string to solve</param>
+        /// <returns>A string representing the solution</returns>
         public string Solve(string input) {
+            
             // Create a new InputString object
             InputStringBoard inputStringBoard = new InputStringBoard(input);
 
