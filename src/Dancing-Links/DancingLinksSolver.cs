@@ -1,5 +1,3 @@
-using System.Runtime.InteropServices.ComTypes;
-using System.Diagnostics;
 using System.Collections;
 using System;
 
@@ -11,29 +9,41 @@ namespace Omega_Sudoku.src.DancingLinks
     /// </summary>
     public class DancingLinksSolver
     {
-        // The list representing the nodes that are included in the solution
+        // The stack representing the nodes that are included in the solution
         private Stack<DancingNode> _solution;
 
         // The DLX cover problem list to solve
         private ColumnHeaderNode _root;
 
-
+        /// <summary>
+        /// Constructor for the DancingLinksSolver class
+        /// </summary>
+        /// <param name="root">The first node in the exact cover problem</param>
         public DancingLinksSolver(ColumnHeaderNode root) {
             this._root = root;
             this._solution = new Stack<DancingNode>();
         }
 
+        /// <summary>
+        /// This method solves the board by calling the recursive function "Serach"
+        /// </summary>
+        /// <returns>The stack of nodes that form the solution</returns>
         public Stack<DancingNode> Solve() {
-            this.Search(0);
+            this.Search();
             return this._solution;
         }
 
-        public bool Search(int k) {
+        /// <summary>
+        /// This recursive method implements the "Serach" operation
+        /// in order to find the rows that form a solution to the 
+        /// exact cover problem
+        /// </summary>
+        /// <returns>true if a solution as been found, false otherwise</returns>
+        public bool Search() {
             // If there are no more columns, we reached a solution, so return true
             if (_root.right == _root) {
                 return true;
             }
-
             // Else, choose the column and cover it
             ColumnHeaderNode column = this.SelectColumnHeaderNode();
             column.Cover();
@@ -51,12 +61,12 @@ namespace Omega_Sudoku.src.DancingLinks
                     nodePointer = nodePointer.right;
                 }
 
-                // Call the function recursively
-                if (Search(k+1)) {
+                // Call the function recursively. If there is a solution, return true
+                if (Search()) {
                     return true;
                 }
 
-                // Get the last node in the solution and its column
+                // Else, get the last node in the solution and its column
                 rowPointer = _solution.Pop();
                 column = rowPointer.header;
 
@@ -74,6 +84,12 @@ namespace Omega_Sudoku.src.DancingLinks
             return false;
         }
 
+        /// <summary>
+        /// This method chooses returns column header node which has
+        /// the least amount of nodes connected to it downward  
+        /// </summary>
+        /// <returns>The column header node with the least 
+        /// number of connected nodes</returns>
         public ColumnHeaderNode SelectColumnHeaderNode() {
             // The header node with the minimum value
             ColumnHeaderNode minColumnNode = (ColumnHeaderNode) _root.right;
@@ -89,7 +105,7 @@ namespace Omega_Sudoku.src.DancingLinks
                 }
                 columnPointer = (ColumnHeaderNode) columnPointer.right;
             }
-
+            // Return the minimum node
             return minColumnNode;
         }
     } 
