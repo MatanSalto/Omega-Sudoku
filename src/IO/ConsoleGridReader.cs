@@ -13,7 +13,7 @@ namespace Omega_Sudoku.src.IO
         /// <summary>
         /// This method reads input from the console
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The input string</returns>
         public string Read() {
             Console.WriteLine("Enter the string");
             return Console.ReadLine();
