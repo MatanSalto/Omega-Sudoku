@@ -1,5 +1,7 @@
 using System;  
 using System.Diagnostics;
+using System.Runtime.InteropServices.Marshalling;
+using Omega_Sudoku.src.Exceptions;
 using Omega_Sudoku.src.IO;
 using Omega_Sudoku.src.SudokuSolving;
 
@@ -11,12 +13,11 @@ namespace Omega_Sudoku
 
             Console.WriteLine("Welcome to the sudoku solving app");
             Solver solver = new Solver();
-            while (true) {
+            while (true)
+            {
                 // Show the main menu
-                Console.WriteLine("Enter 'c' to enter the board from console");
-                Console.WriteLine("Enter 'f' to enter the board from a file");
-                Console.WriteLine("Enter 'x' to exit the app");
-                
+                ShowMenu();
+
                 // Get the user's choice
                 char choice = Console.ReadLine()[0];
 
@@ -31,9 +32,8 @@ namespace Omega_Sudoku
                 {
                     Console.WriteLine("Invalid choice. Try again");
                     continue;
-
                 }
-                    // Else, create an IO device with the method
+                // Else, create an IO device with the method
                 IODevice ioDevice = new IODevice(choice);
 
                 // Get the input string from the user
@@ -43,24 +43,49 @@ namespace Omega_Sudoku
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                // Solve the board and stop the stopwatch
-                string solution = solver.Solve(inputString);
-                stopwatch.Stop();
+                // Try solving the board
+                try
+                {
+                    // Solve the board and stop the stopwatch
+                    string solution = solver.Solve(inputString);
+                    stopwatch.Stop();
 
-                // Output the solution string
-                ioDevice.Write(solution);
+                    // Output the solution string
+                    ioDevice.Write("The solution to the input board is\n\n" + solution);
 
-                Console.WriteLine("Time: " + stopwatch.ElapsedMilliseconds + " ms");
+                    // Print the time it took solve the board
+                    Console.WriteLine("Time: " + stopwatch.ElapsedMilliseconds + " ms");
+                }
+
+                // Catch Solving Exceptions
+                catch (InvalidLengthException ile)
+                {
+                    Console.WriteLine(ile.Message);
+                    continue;
+                }
+                catch (InvalidCharacterException ice)
+                {
+                    Console.WriteLine(ice.Message);
+                    continue;
+                }
+                catch (InvalidBoardException ibe)
+                {
+                    Console.WriteLine(ibe.Message);
+                    continue;
+                }
+                catch (UnsolvableBoardException ube)
+                {
+                    Console.WriteLine(ube.Message);
+                    continue;
+                }
             }
-            
-
         }
 
         public static void ShowMenu()
         {
-            
-
+            Console.WriteLine("\n\nEnter 'c' to enter the board from console");
+            Console.WriteLine("Enter 'f' to enter the board from a file");
+            Console.WriteLine("Enter 'x' to exit the app\n\n");
         }
-       
     }
 }
