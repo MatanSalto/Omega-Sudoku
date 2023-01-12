@@ -24,7 +24,7 @@ namespace Omega_Sudoku
 
                 // Get the user's choice
                 string choiceString = Console.ReadLine();
-                char choice = choiceString != null ? choiceString[0] : ' ';
+                char choice = choiceString != "" && choiceString != null ? choiceString[0] : ' ';
 
                 // If the user's choice was 'x', exit the mainloop
                 if (choice == 'x')
@@ -43,6 +43,13 @@ namespace Omega_Sudoku
 
                 // Get the input string from the user
                 string inputString = ioDevice.Read();
+
+                // If the sting is empty, continue
+                if (inputString == "")
+                {
+                    Console.WriteLine("The input string is empty. Try again");
+                    continue;
+                }
 
                 // Activate the stopwatch
                 Stopwatch stopwatch = new Stopwatch();
