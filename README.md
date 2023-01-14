@@ -20,10 +20,15 @@ The application accepts as input a string representing a sudoku board (at any va
 ## Installation
 ### Requirements 
 Make sure you have .NET 7.0 installed on your computer.
-Make sure you have Visual Studio 2022 installed.
 
 ### Running The Application
-In order to run the application, clone the repository to your local computer, and run the **Program.cs** file in Visual Studio 2022 (this is where the Main method is located).
+In order to run the application, clone the repository to your local computer, and run the command 
+```
+dotnet run
+```
+from the inner directory __Omega-Sudoku__.
+
+Or, you can run the **Program.cs** file in Visual Studio (this is where the Main method is located).
 
 ## Usage
 ### Using the Solver Class
