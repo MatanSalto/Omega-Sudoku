@@ -8,12 +8,11 @@ namespace Omega_Sudoku.src.SudokuSolving
     /// This class represents a Solver object,
     /// which is responsible for solving the sudoku board
     /// </summary>
-    public class Solver
+    public static class Solver
     {
         /// <summary>
         /// Constructor for the Solver class
         /// </summary>
-        public Solver() { }
 
         /// <summary>
         /// This method implements the pipeline for solving
@@ -21,7 +20,7 @@ namespace Omega_Sudoku.src.SudokuSolving
         /// </summary>
         /// <param name="input">The input string to solve</param>
         /// <returns>A string representing the solution</returns>
-        public string Solve(string input) {
+        public static string Solve(string input) {
             
             // Create a new InputString object
             InputStringBoard inputStringBoard = new InputStringBoard(input);
