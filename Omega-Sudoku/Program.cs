@@ -1,7 +1,6 @@
 #pragma warning disable CS8600
 #pragma warning disable CS8602
 
-
 using System;  
 using System.Diagnostics;
 using System.Runtime.InteropServices.Marshalling;
@@ -16,7 +15,6 @@ namespace Omega_Sudoku
         public static void Main(string[] args) {
 
             Console.WriteLine("Welcome to the sudoku solving app");
-            Solver solver = new Solver();
             while (true)
             {
                 // Show the main menu
@@ -59,7 +57,7 @@ namespace Omega_Sudoku
                 try
                 {
                     // Solve the board and stop the stopwatch
-                    string solution = solver.Solve(inputString);
+                    string solution = Solver.Solve(inputString);
                     stopwatch.Stop();
 
                     // Output the solution string
